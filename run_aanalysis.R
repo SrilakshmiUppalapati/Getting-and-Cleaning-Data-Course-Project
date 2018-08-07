@@ -21,9 +21,6 @@ subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt") #subjec
 train$subject <- factor(subject_train$V1)
 
 
-
-
-
 #reading test data
 
 X_test <- read.table("./UCI HAR Dataset/test/X_test.txt")
@@ -37,6 +34,19 @@ test$activity <- y_test$V1
 subject_test <- read.table("./UCI HAR Dataset/test/subject_test.txt")
 
 test$subject <- factor(subject_test$V1)
+
+# STEP #1 ******* Merge the training and the test sets to create one data set
+
+dataset <- rbind(X_test, X_train) 
+
+# STEP #2 ******* Extract only the measurements on the mean and standard deviation for each measurement
+
+column.names <- colnames(dataset)
+
+column.names.filtered <- grep("std\\(\\)|mean\\(\\)|activity|subject", column.names, value=TRUE)
+
+dataset.filtered <- dataset[, column.names.filtered] 
+
 
 
 
