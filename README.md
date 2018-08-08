@@ -13,13 +13,11 @@ test/y_test.txt - activity (from 1 to 6) for each measurement from the test set
 
 How script works
 
-Script involves the following stages:
-Downloads to R ids and descriptions for features being measured in experiment from file features.txt.
-Independently loads complete data for train and test sets. Let's revoke these loading process considering train set:
-a. Firstly loads the measurements from X_train.txt as a data frame
-b. For these data frame column names are updated to be more user friendly using features description loaded on the previous stage. (STEP 4: Appropriately label the data set with descriptive variable names of Course Project
-c. activity labels and subjects for measurements are also loaded from files train/y_train.txt and train/subject_train.txt and added to data frame as a separated columns.
-Similar steps are made for test dataset and finally 2 rows of 2 data frames are merged together to form are data frame with complete data (STEP 1: Merge the training and the test sets to create one data set of assignment)
-To extract measurements that involves only mean and standard deviation values script uses grep, that finds column names that includes "mean()" or "std()" (also columns activity and subject are added to filtered data frame, since they are important dimensions). After that all new data frame with only necessary columns is created. (STEP 2: Extract only the measurements on the mean and standard deviation for each measurement of assignment)
-To provide descriptive values for activity labels a new variable "activitylabel" is added to dataset, that is a factor variable with levels mentioned in file activity_labels.txt (STEP 3: Use descriptive activity names to name the activities in the data set of assignment)
-Creates a melted data frame using activity label and subject as ids, after that mean values for all variables are calculated grouped by activity and subject using dcast() function and tidy data frame is created. (STEP 5: Create a second, independent tidy data set with the average of each variable for each activity and each subject)
+a. Loads all training data from files - Features, Activities and Subjects
+b. Loads all test data from files - Features, Activities and Subjects
+c. Loads all Features and Activity labels from files
+d. Merges training and test data that are read above and set column names
+e. Extract only the measurements on the mean and standard deviation for each measurement. Determines columns to keep and keep them
+f. Appropriately label the merged data set with descriptive variable names. Ex: "Acc" to "Accelerometer"; "Gyro" to "Gyroscope" etc.
+g. From the above data set, creates a second, independent tidy data set with the average/mean of each variable for each activity and each subject
+h. Finally outputs the above mean value data set to a file "tidy_data.txt" with row.name=FALSE
