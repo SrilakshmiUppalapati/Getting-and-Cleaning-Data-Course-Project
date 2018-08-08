@@ -1,22 +1,25 @@
+#reading training data
+features_train <- read.table("./UCI HAR Dataset/train/X_train.txt") #features data
+activity_train <- read.table("./UCI HAR Dataset/train/y_train.txt") #activity labels
+subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt") #subjects
+
+#reading test data
+features_test <- read.table("./UCI HAR Dataset/test/X_test.txt") #features data
+activity_test <- read.table("./UCI HAR Dataset/test/y_test.txt") #activity labels
+subject_test <- read.table("./UCI HAR Dataset/test/subject_test.txt") #subjects
+
+
 #reading features and activity data
 
-features <- read.table("./UCI HAR Dataset/features.txt")
-
+features <- read.table("./UCI HAR Dataset/features.txt", as.is=TRUE)
 activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
+colnames(activity_labels) <- c("activityId", "activityLabel") #descriptive column names for data (STEP 4)
 
 
-
-#reading training data
-
-X_train <- read.table("./UCI HAR Dataset/train/X_train.txt") #features data
-
-colnames(X_train) <- features$V2 #descriptive column names for data (STEP 4)
-
-y_train <- read.table("./UCI HAR Dataset/train/y_train.txt") #activity labels
 
 train$activity <- y_train$V1
 
-subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt") #subjects
+
 
 train$subject <- factor(subject_train$V1)
 
