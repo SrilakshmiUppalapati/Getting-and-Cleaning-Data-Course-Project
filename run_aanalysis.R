@@ -79,7 +79,7 @@ merged_dataset_means<-merged_dataset_means[order(merged_dataset$subject,merged_d
 
 # output the above mean values data set to a file "tidy_data.txt"
 
-write.table(merged_dataset_means, "tidy_data.txt", row.names = FALSE, quote = FALSE)
+write.table(merged_dataset_means, "tidy_data.txt", row.names = FALSE)
 
 
 
