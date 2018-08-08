@@ -39,7 +39,7 @@ merged_dataset <- merged_dataset[, columnsToKeep]
 # replace activity values with named factor levels
 
 merged_dataset$activity <- factor(merged_dataset$activity, 
-levels = activities[, 1], labels = activities[, 2])
+levels = activity_labels[, 1], labels = activity_labels[, 2])
 
 # STEP #4 ******* Appropriately label the data set with descriptive variable names
 
