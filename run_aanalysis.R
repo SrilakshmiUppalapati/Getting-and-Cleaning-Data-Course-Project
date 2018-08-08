@@ -53,21 +53,15 @@ merged_dataset_columns <- gsub("[\\(\\)-]", "", merged_dataset_columns)
 
 # expand abbreviations and clean up names
 
-merged_dataset_columns <- gsub("^f", "frequencyDomain", merged_dataset_columns)
+merged_dataset_columns <- gsub("^f", "Frequency", merged_dataset_columns)
 
-merged_dataset_columns <- gsub("^t", "timeDomain", merged_dataset_columns)
+merged_dataset_columns <- gsub("^t", "Time", merged_dataset_columns)
 
 merged_dataset_columns <- gsub("Acc", "Accelerometer", merged_dataset_columns)
 
 merged_dataset_columns <- gsub("Gyro", "Gyroscope", merged_dataset_columns)
 
 merged_dataset_columns <- gsub("Mag", "Magnitude", merged_dataset_columns)
-
-merged_dataset_columns <- gsub("Freq", "Frequency", merged_dataset_columns)
-
-merged_dataset_columns <- gsub("mean", "Mean", merged_dataset_columns)
-
-merged_dataset_columns <- gsub("std", "StandardDeviation", merged_dataset_columns)
 
 merged_dataset_columns <- gsub("BodyBody", "Body", merged_dataset_columns)
 
