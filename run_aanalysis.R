@@ -72,14 +72,15 @@ colnames(merged_dataset) <- merged_dataset_columns
 
 # STEP 5 ****** From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject
 
-#creating a tidy dataset with mean values for each subject and activity
+#creating a tidy dataset with mean values for each subject and activity. group by subject and activity and summarise using mean
 
-merged_dataset_means<-aggregate(. ~subject + activity, merged_dataset, mean)
-merged_dataset_means<-merged_dataset_means[order(merged_dataset$subject,merged_dataset$activity),]
+merged_dataset_means <- merged_dataset %>% 
+  group_by(subject, activity) %>%
+  summarise_each(funs(mean))
 
 # output the above mean values data set to a file "tidy_data.txt"
 
-write.table(merged_dataset_means, "tidy_data.txt", row.names = FALSE)
+write.table(merged_dataset_means, "tidy_data.txt", row.names = FALSE, quote = FALSE)
 
 
 
