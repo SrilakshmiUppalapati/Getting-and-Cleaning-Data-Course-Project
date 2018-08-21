@@ -2,7 +2,7 @@
 
 The script analyzes the data from UCI HAR Dataset. The archive is extracted to the working directory.
 
-The following files are used:
+The following files from above data set are used:
 
 features.txt - includes the descriptions for features measured
 
@@ -21,19 +21,19 @@ test/y_test.txt - activity (from 1 to 6) for each measurement from the test set
 
 How the script works
 
-a. Loads all training data from files - Features, Activities and Subjects
+a. Loads all training data from files - Features, Activities and Subjects, using read.table command
 
-b. Loads all test data from files - Features, Activities and Subjects
+b. Loads all test data from files - Features, Activities and Subjects, using read.table command
 
-c. Loads all Features and Activity labels from files
+c. Loads all Features and Activity labels from files using read.table command
 
-d. Merges training and test data that are read above and set column names
+d. Merges training and test data that are read above and set column names using cbind and rbind commands
 
 e. Extract only the measurements on the mean and standard deviation for each measurement. Determines columns to keep and keep them
 
-f. Appropriately label the merged data set with descriptive variable names. Ex: "Acc" to "Accelerometer"; "Gyro" to "Gyroscope" etc.
+f. Appropriately label the merged data set with descriptive variable names using gsub command. Ex: "Acc" to "Accelerometer"; "Gyro" to "Gyroscope" etc.
 
-g. From the above data set, creates a second, independent tidy data set with the average/mean of each variable for each activity and each subject
+g. From the above data set, creates a second, independent tidy data set with the average/mean of each variable for each activity and each subject using ddply command
 
-h. Finally outputs the above mean value data set to a file "tidy_data.txt" with row.name=FALSE
+h. Finally outputs the above mean value tidy data set to a file "tidy_data.txt" with row.name=FALSE
 
