@@ -1,3 +1,5 @@
+require(plyr)
+
 #reading training data
 features_train <- read.table("./UCI HAR Dataset/train/X_train.txt") #features data
 activity_train <- read.table("./UCI HAR Dataset/train/y_train.txt") #activity labels
@@ -21,14 +23,14 @@ merged_dataset <- rbind(
   cbind(subject_train, features_train, activity_train),
   cbind(subject_test, features_test, activity_test)
 ) 
-  # Set column names for merged data set
-colnames(merged_dataset) <- c("subject", features[, 2], "activity")
+# Set column names for merged data set
+colnames(merged_dataset) <- c("Subject", features[, 2], "Activity")
 
 # STEP #2 ******* Extract only the measurements on the mean and standard deviation for each measurement
 
-  # determine columns of data set to keep based on column name...
+# determine columns of data set to keep based on column name...
 
-columnsToKeep <- grepl("subject|activity|mean|std", colnames(merged_dataset))
+columnsToKeep <- grepl("Subject|Activity|mean|std", colnames(merged_dataset))
 
 # ... and keep data in these columns only
 
@@ -38,8 +40,8 @@ merged_dataset <- merged_dataset[, columnsToKeep]
 
 # replace activity values with named factor levels
 
-merged_dataset$activity <- factor(merged_dataset$activity, 
-levels = activity_labels[, 1], labels = activity_labels[, 2])
+merged_dataset$Activity <- factor(merged_dataset$Activity, 
+                                  levels = activity_labels[, 1], labels = activity_labels[, 2])
 
 # STEP #4 ******* Appropriately label the data set with descriptive variable names
 
@@ -47,6 +49,38 @@ levels = activity_labels[, 1], labels = activity_labels[, 2])
 
 merged_dataset_columns <- colnames(merged_dataset)
 
+# remove special characters
+
+merged_dataset_columns <- gsub("[\\(\\)-]", "", merged_dataset_columns)
+
+# expand abbreviations and clean up names
+
+merged_dataset_columns <- gsub("^f", "Frequency", merged_dataset_columns)
+
+merged_dataset_columns <- gsub("^t", "Time", merged_dataset_columns)
+
+merged_dataset_columns <- gsub("Acc", "Accelerometer", merged_dataset_columns)
+
+merged_dataset_columns <- gsub("Gyro", "Gyroscope", merged_dataset_columns)
+
+merged_dataset_columns <- gsub("Mag", "Magnitude", merged_dataset_columns)
+
+merged_dataset_columns <- gsub("BodyBody", "Body", merged_dataset_columns)
+
+# use new labels as column names
+
+colnames(merged_dataset) <- merged_dataset_columns
+
+
+# STEP 5 ****** From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject
+
+#creating a tidy dataset with mean values for each Subject and Activity. group by subject and activity and summarise using mean
+
+tidy_dataset = ddply(merged_dataset, c("Subject","Activity"), numcolwise(mean))
+
+# output the above mean values data set to a file "tidy_data.txt"
+
+write.table(tidy_dataset, "tidy_data.txt", row.names = FALSE)
 # remove special characters
 
 merged_dataset_columns <- gsub("[\\(\\)-]", "", merged_dataset_columns)
