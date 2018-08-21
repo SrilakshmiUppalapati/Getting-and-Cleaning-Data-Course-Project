@@ -4,8 +4,8 @@
 ## Initial data for research
 The data is taken from [UCI HAR Dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip). 
 This dataset provide the following variables for each activity:
-  1. *subject* - ID of participant
-  2. *activity* - ID of activity type
+  1. *Subject* - ID of participant
+  2. *Activity* - ID of activity type
   3. Mean and standart deviation for the following features (other values are presented in initial dataset, but for this reasearch only these parameters were used)
       * tBodyAcc-XYZ
       * tGravityAcc-XYZ
@@ -36,8 +36,11 @@ These signals were used to estimate variables of the feature vector for each pat
 
 ## CodeBook
 
-The following data transformations were conducted to form a tidy dataset:  
-
-1. Added a new feature ***activitylabel*** - factor variable for activities with the following levels: *WALKING*, *WALKING_UPSTAIRS*, *WALKING_DOWNSTAIRS*, *SITTING*, *STANDING*, *LAYING*. 
-
-2. Tidy dataset was build as a mean values of features grouped by ***activitylabel*** and ***subject*** - for each subject and activity type determined mean values over all activities of that type.  
+a. Loads all training data from files - Features, Activities and Subjects, using read.table command
+b. Loads all test data from files - Features, Activities and Subjects, using read.table command
+c. Loads all Features and Activity labels from files using read.table command
+d. Merges training and test data that are read above using cbind and rbind commands and set column names 
+e. Extract only the measurements on the mean and standard deviation for each measurement. Determines columns to keep and keep them
+f. Appropriately label the merged data set with descriptive variable names using gsub command. Ex: Change "Acc" to "Accelerometer"; "Gyro" to "Gyroscope" etc.
+g. From the above data set, creates a second, independent tidy data set with the average/mean of each variable for each activity and each subject using ddply command
+h. Finally outputs the above mean value tidy data set to a file "tidy_data.txt" with row.name=FALSE
