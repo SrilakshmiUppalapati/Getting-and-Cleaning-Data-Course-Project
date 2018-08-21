@@ -37,10 +37,17 @@ These signals were used to estimate variables of the feature vector for each pat
 ## CodeBook
 
 a. Loads all training data from files - Features, Activities and Subjects, using read.table command
+
 b. Loads all test data from files - Features, Activities and Subjects, using read.table command
+
 c. Loads all Features and Activity labels from files using read.table command
+
 d. Merges training and test data that are read above using cbind and rbind commands and set column names 
+
 e. Extract only the measurements on the mean and standard deviation for each measurement. Determines columns to keep and keep them
+
 f. Appropriately label the merged data set with descriptive variable names using gsub command. Ex: Change "Acc" to "Accelerometer"; "Gyro" to "Gyroscope" etc.
+
 g. From the above data set, creates a second, independent tidy data set with the average/mean of each variable for each activity and each subject using ddply command
+
 h. Finally outputs the above mean value tidy data set to a file "tidy_data.txt" with row.name=FALSE
